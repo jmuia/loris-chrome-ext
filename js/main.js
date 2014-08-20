@@ -31,7 +31,7 @@ for (var i = 0; i < classContainer.length; i += 2) {
 	var status = infoTable.querySelectorAll('tbody tr td')[2].innerHTML;
 	if (status.toLowerCase().indexOf('enrolled') === -1) continue;
 
-	var className = infoTable.querySelector('caption').innerHTML;
+	var className = infoTable.querySelector('caption').firstChild.nodeValue;
 	var classTime = meetingTimeInfo[1].innerHTML.split("-");
 	var days      = meetingTimeInfo[2].innerHTML.split('');
 	var loc       = meetingTimeInfo[3];
