@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "WLU Student Detail Schedule",
+  "description": "In just one click download a Google Calendar-, Apple Calendar-, and Outlook-friendly version of your student detail schedule!",
+  "version": "0.1",
+
+  "page_action": {
+    "default_icon": "icon_38.png",
+    "default_tooltip": "Download schedule as .ics"
+  },
+
+  "icons": {
+    "16": "icon_16.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
+  },
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+   },
+
+  "permissions" : [
+    "declarativeContent",
+    "activeTab"
+  ]
+}
