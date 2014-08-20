@@ -35,7 +35,7 @@ for (var i = 0; i < classContainer.length; i += 2) {
 	var classTime = meetingTimeInfo[1].innerHTML.split("-");
 	var days      = meetingTimeInfo[2].innerHTML.split('');
 	var loc       = meetingTimeInfo[3];
-	loc = (typeof loc.querySelector('abbr') !== 'undefined') ? loc.innerHTML : 'TBA';
+	loc = (loc.querySelector('abbr')) ? 'TBA' : loc.innerHTML;
 	var daterange = meetingTimeInfo[4].innerHTML.split("-");
 
 	var startTime = firstDayFromDate(days, new Date(daterange[0] + " " + classTime[0]));
