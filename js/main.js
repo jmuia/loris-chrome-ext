@@ -23,9 +23,12 @@ var cal = ics();
 var classContainer = document.querySelector('div.pageBodyDiv').querySelectorAll('table.datadisplaytable');
 if (!classContainer || (classContainer.length % 2) !== 0 ) throw "Error scraping data";
 
+var term = '';
+
 for (var i = 0; i < classContainer.length; i += 2) {
 	var infoTable = classContainer[i];
 	var meetingTimeInfo = classContainer[i+1].querySelectorAll('tbody tr')[1].querySelectorAll('td');
+	if (!term) term = infoTable.querySelectorAll('tbody tr td')[0].innerHTML;
 
 	// Only add courses you are enrolled in
 	var status = infoTable.querySelectorAll('tbody tr td')[2].innerHTML;
@@ -56,9 +59,10 @@ for (var i = 0; i < classContainer.length; i += 2) {
 	};
 
 	cal.addEvent(className, '', loc, startTime, endTime, rrule);
+	
 }
 
-cal.download('studentdetailschedule');
+cal.download(term + ' Schedule');
 
 function firstDayFromDate(days, date) {
 	var foundDate = false;
