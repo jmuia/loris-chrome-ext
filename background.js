@@ -9,6 +9,7 @@ chrome.runtime.onInstalled.addListener(function() {
          conditions: [
          new chrome.declarativeContent.PageStateMatcher({
           pageUrl: { hostEquals: 'loris.wlu.ca', pathSuffix: 'CrseSchdDetl' },
+          css    : ['table.datadisplaytable']
          })
          ],
          // And shows the extension's page action.
