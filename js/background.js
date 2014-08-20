@@ -24,17 +24,17 @@ chrome.pageAction.onClicked.addListener( function (tab) {
 
   // inject ics.min.js dependencies
   chrome.tabs.executeScript({
-    file: 'ics.deps.min.js'
+    file: 'js/ics.deps.min.js'
   });
 
   // inject ics.min.js library
   chrome.tabs.executeScript({
-    file: 'ics.js'
+    file: 'js/ics.min.js'
   });
 
   // inject script to do the scrape the data and create .ics file
   chrome.tabs.executeScript({
-    file: 'scrape.js'
+    file: 'js/main.js'
   });
 
 });

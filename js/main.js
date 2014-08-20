@@ -1,6 +1,3 @@
-var cal = ics();
-var classContainer = document.querySelector('div.pageBodyDiv').querySelectorAll('table.datadisplaytable');
-
 var DAYS_OF_WEEK =
 { 
 	//0   : 'S',
@@ -12,6 +9,19 @@ var DAYS_OF_WEEK =
 	6 : 'S'
 };
 
+var BYDAYS = {
+	'S' : 'SU',
+	'M' : 'MO',
+	'T' : 'TU',
+	'W' : 'WE',
+	'R' : 'TH',
+	'F' : 'FR',
+	'S' : 'SA'
+};
+
+var cal = ics();
+var classContainer = document.querySelector('div.pageBodyDiv').querySelectorAll('table.datadisplaytable');
+if (!classContainer || (classContainer.length % 2) !== 0 ) throw "Error scraping data";
 
 for (var i = 0; i < classContainer.length; i += 2) {
 	var infoTable = classContainer[i];
@@ -25,24 +35,27 @@ for (var i = 0; i < classContainer.length; i += 2) {
 	var classTime = meetingTimeInfo[1].innerHTML.split("-");
 	var days      = meetingTimeInfo[2].innerHTML.split('');
 	var loc       = meetingTimeInfo[3];
-	if (loc.querySelector('abbr').length > 0) {
-		loc = loc.innerHTML;
-	} else {
-		loc = 'TBA';
-	}
+	loc = (typeof loc.querySelector('abbr') !== 'undefined') ? loc.innerHTML : 'TBA';
 	var daterange = meetingTimeInfo[4].innerHTML.split("-");
 
 	var startTime = firstDayFromDate(days, new Date(daterange[0] + " " + classTime[0]));
 	var endTime   = firstDayFromDate(days, new Date(daterange[0] + " " + classTime[1]));
-	var termEnd  = new Date(daterange[1])
+	var termEnd  = new Date(daterange[1]);
 	termEnd.setDate(termEnd.getDate()+1);
+	var bydays = [];
 
-	var recurrence = {
-		'endDate' : termEnd,
-		'days'    : days
+	for (var j = 0; j < days.length; j++) {
+		bydays.push(BYDAYS[days[j]]);
+	}
+
+	var rrule = {
+		freq     : 'WEEKLY',
+		until    : termEnd ,
+		interval : 1,
+		byday    : bydays
 	};
 
-	cal.addEvent(className, '', loc, startTime, endTime, recurrence);
+	cal.addEvent(className, '', loc, startTime, endTime, rrule);
 }
 
 cal.download('studentdetailschedule');
