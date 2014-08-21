@@ -34,6 +34,10 @@ for (var i = 0; i < classContainer.length; i += 2) {
 	var status = infoTable.querySelectorAll('tbody tr td')[2].innerHTML;
 	if (status.toLowerCase().indexOf('enrolled') === -1) continue;
 
+	// Skip online courses with no set dates
+	var online = infoTable.querySelectorAll('tbody tr td')[7].innerHTML;
+	if (online.toLowerCase().indexOf('online') !== -1) continue;
+
 	var className = infoTable.querySelector('caption').firstChild.nodeValue;
 	var classTime = meetingTimeInfo[1].innerHTML.split("-");
 	var days      = meetingTimeInfo[2].innerHTML.split('');
